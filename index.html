@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <style>
+        body {
+        background-image: url(bg.webp);
+        background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #music-player {
+            text-align: center;
+        }
+
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="music-player">
+        <audio id="audio" controls>
+            <source src="paradise.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+        <button id="prev">Previous</button>
+        <button id="play-pause">Play</button>
+        <button id="next">Next</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var audio = document.getElementById("audio");
+            var playPauseButton = document.getElementById("play-pause");
+            var nextButton = document.getElementById("next");
+            var prevButton = document.getElementById("prev");
+
+            var playlist = [
+                "steve.mp3",
+                "paradise.mp3",
+                // Add more audio files as needed
+            ];
+
+            var currentSongIndex = 0;
+
+            function playPause() {
+                if (audio.paused) {
+                    audio.play();
+                    playPauseButton.innerText = "Pause";
+                } else {
+                    audio.pause();
+                    playPauseButton.innerText = "Play";
+                }
+            }
+
+            function nextSong() {
+                currentSongIndex = (currentSongIndex + 1) % playlist.length;
+                audio.src = playlist[currentSongIndex];
+                audio.play();
+                playPauseButton.innerText = "Pause";
+            }
+
+            function prevSong() {
+                currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+                audio.src = playlist[currentSongIndex];
+                audio.play();
+                playPauseButton.innerText = "Pause";
+            }
+
+            playPauseButton.addEventListener("click", playPause);
+            nextButton.addEventListener("click", nextSong);
+            prevButton.addEventListener("click", prevSong);
+        });
+    </script>
+</body>
+</html>
